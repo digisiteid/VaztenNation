@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vazten Nation | Official Store</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .glass { background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(10px); }
+        .fade-in { animation: fadeIn 1s ease-in; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        /* Animasi Infinite Scroll */
+        .scrolling-wrapper { display: flex; overflow-x: auto; scroll-behavior: smooth; }
+    </style>
+</head>
+<body class="bg-black text-white font-sans">
+
+  <div id="mobile-menu" class="hidden fixed top-20 left-4 right-4 bg-black/90 z-40 flex flex-col items-center gap-6 py-10 rounded-2xl border border-white/20 shadow-2xl md:hidden">
+    <a href="#home" onclick="toggleMenu()" class="text-lg hover:text-gray-400">Home</a>
+    <a href="#products" onclick="toggleMenu()" class="text-lg hover:text-gray-400">Products</a>
+    <a href="#galeri" onclick="toggleMenu()" class="text-lg hover:text-gray-400">Galeri</a>
+    <a href="#follow" onclick="toggleMenu()" class="text-lg hover:text-gray-400">Follow Me</a>
+    <button onclick="toggleMenu()" class="mt-4 text-xs border border-white px-8 py-2 hover:bg-white hover:text-black transition-all">TUTUP</button>
+</div>
+
+    <nav class="fixed w-full z-50 glass border-b border-white/10 p-4 flex justify-between items-center transition-all duration-300">
+        <div class="flex items-center gap-3">
+            <img src="asset/logo.jpeg" class="rounded-full w-10 h-10 border-2 border-black object-cover bg-black" alt="Logo" style="image-rendering: -webkit-optimize-contrast;">
+            <span class="text-xl font-bold tracking-widest">VAZTEN</span>
+        </div>
+        
+        <div class="hidden md:flex gap-8 text-sm uppercase tracking-tighter">
+            <a href="#home" class="hover:text-gray-400">Home</a>
+            <a href="#products" class="hover:text-gray-400">Products</a>
+            <a href="#galeri" class="hover:text-gray-400">Galeri</a>
+            <a href="#follow" class="hover:text-gray-400">Follow Me</a>
+        </div>
+
+        <div class="flex items-center gap-4">
+            <select class="bg-transparent text-xs border border-white/50 p-1">
+                <option value="id">IN</option>
+                <option value="en">EN</option>
+            </select>
+            <button onclick="toggleMenu()" class="md:hidden text-2xl">☰</button>
+        </div>
+    </nav>
+
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+    </script>
+
+    <section id="home" class="relative h-screen w-full overflow-hidden flex flex-col items-center justify-center">
+    
+    <div id="hero-slider" class="absolute inset-0 z-0">
+        <div class="hero-slide absolute inset-0 bg-cover bg-center opacity-100 transition-opacity duration-1000" style="background-image: url('asset/Hero3.jpeg');"></div>
+        <div class="hero-slide absolute inset-0 bg-cover bg-center opacity-0 transition-opacity duration-1000" style="background-image: url('asset/hero4.jpeg');"></div>
+        <div class="hero-slide absolute inset-0 bg-cover bg-center opacity-0 transition-opacity duration-1000" style="background-image: url('asset/hero5.jpeg');"></div>
+    </div>
+
+    <div class="absolute inset-0 bg-black/60 z-10"></div>
+
+    <div class="relative z-20 flex flex-col items-center justify-center w-full px-4 h-full">
+    
+<div class="relative z-20 flex flex-col items-center justify-center w-full px-4 h-full gap-4">
+    
+    <div class="flex justify-center mt-10">
+        <img 
+            src="asset/logo2.png" 
+            alt="Vazten Logo" 
+            class="w-[65vw] md:w-[600px] h-auto object-contain transition-all duration-300"
+            style="image-rendering: -webkit-optimize-contrast; image-rendering: high-quality;"
+        >
+    </div>
+    
+    <a href="#products" 
+   class="group relative px-10 py-3 border border-white text-white font-medium uppercase tracking-[0.2em] transition-all duration-500 hover:bg-white hover:text-black animate-on-scroll fade-up"
+   style="transition-delay: 0.3s;"> <span class="relative z-10">BUY NOW</span>
+</a>
+</div>
+</section>
+
+<style>
+    .animate-on-scroll {
+  opacity: 0;
+  transition: all 1.2s ease-out; /* Durasi 1.2 detik agar lambat & elegan */
+}
+
+.fade-up {
+  transform: translateY(40px); /* Jarak awal sebelum muncul */
+}
+
+.animate-on-scroll.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+</style>
+
+<script>
+  // Fungsi untuk memicu animasi
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('show');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  // Fungsi untuk inisialisasi animasi
+  function initAnimations() {
+    const elements = document.querySelectorAll('.animate-on-scroll');
+    // Hapus class 'show' agar animasi bisa diulang dari awal
+    elements.forEach(el => el.classList.remove('show'));
+    // Observasi ulang
+    elements.forEach((el) => observer.observe(el));
+  }
+
+  // Panggil saat halaman pertama kali dimuat
+  document.addEventListener('DOMContentLoaded', initAnimations);
+
+  // Panggil saat halaman dimuat dari cache (back/forward button)
+  window.addEventListener('pageshow', initAnimations);
+</script>
+
+<script>
+    // Script untuk mengganti slide setiap 5 detik
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.hero-slide');
+    
+    function changeSlide() {
+        slides[currentSlide].style.opacity = 0;
+        currentSlide = (currentSlide + 1) % slides.length;
+        slides[currentSlide].style.opacity = 1;
+    }
+    
+    setInterval(changeSlide, 5000);
+</script>
+
+<section id="merch-intro" class="py-20 px-6 text-center bg-black">
+    <h2 class="text-4xl md:text-5xl font-black uppercase tracking-tight mb-8">
+        Vazten New Official Merch
+    </h2>
+
+    <div class="mb-12">
+        <a href="#products" 
+           class="inline-block px-12 py-4 bg-yellow-400 text-black font-bold uppercase tracking-widest hover:bg-yellow-300 transition-all duration-300 transform hover:scale-105 shadow-[0_0_20px_rgba(250,204,21,0.4)]">
+           The Wait is Over
+        </a>
+    </div>
+    </section>
+
+<div id="scroll-wrapper" class="overflow-hidden w-full py-10 cursor-pointer touch-none">
+    <div id="scroll-container" class="flex gap-6 w-max">
+        <img src="asset/Hero1.jpeg" class="w-64 h-80 object-cover flex-shrink-0 border border-white/20">
+        <img src="asset/hero2.jpeg" class="w-64 h-80 object-cover flex-shrink-0 border border-white/20">
+        <img src="asset/Hero3.jpeg" class="w-64 h-80 object-cover flex-shrink-0 border border-white/20">
+        <img src="asset/hero4.jpeg" class="w-64 h-80 object-cover flex-shrink-0 border border-white/20">
+        <img src="asset/hero5.jpeg" class="w-64 h-80 object-cover flex-shrink-0 border border-white/20">
+        <img src="asset/Hero1.jpeg" class="w-64 h-80 object-cover flex-shrink-0 border border-white/20">
+        <img src="asset/hero2.jpeg" class="w-64 h-80 object-cover flex-shrink-0 border border-white/20">
+        <img src="asset/Hero3.jpeg" class="w-64 h-80 object-cover flex-shrink-0 border border-white/20">
+        <img src="asset/hero4.jpeg" class="w-64 h-80 object-cover flex-shrink-0 border border-white/20">
+        <img src="asset/hero5.jpeg" class="w-64 h-80 object-cover flex-shrink-0 border border-white/20">
+    </div>
+</div>
+
+<script>
+    const wrapper = document.getElementById('scroll-wrapper');
+    const container = document.getElementById('scroll-container');
+    
+    let pos = 0;
+    let speed = 0.5; // KECEPATAN SANGAT PELAN (Sudah diset lambat)
+    let dir = 1;     // Arah default ke kanan
+
+    function update() {
+        pos += (speed * dir);
+        const halfWidth = container.scrollWidth / 2;
+
+        // Logika Loop Abadi
+        if (pos >= halfWidth) pos = 0;
+        if (pos < 0) pos = halfWidth;
+
+        container.style.transform = `translateX(-${pos}px)`;
+        requestAnimationFrame(update);
+    }
+
+    // Input Controller (Mouse & Touch)
+    function handleMove(clientX) {
+        const rect = wrapper.getBoundingClientRect();
+        const mid = rect.left + (rect.width / 2);
+        
+        dir = clientX > mid ? 1 : -1;
+        // DIBAGI 300 agar pergerakan tidak melonjak kencang
+        speed = Math.min(Math.abs(clientX - mid) / 300 + 0.5, 1.5); 
+    }
+
+    // Event Listener
+    wrapper.addEventListener('mousemove', (e) => handleMove(e.clientX));
+    wrapper.addEventListener('touchmove', (e) => handleMove(e.touches[0].clientX), { passive: false });
+    
+    // Reset ke kecepatan normal saat lepas
+    const reset = () => { speed = 0.5; dir = 1; };
+    wrapper.addEventListener('mouseleave', reset);
+    wrapper.addEventListener('touchend', reset);
+
+    update();
+</script>
+   
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
+
+<style>
+    .font-serif { font-family: 'Cormorant Garamond', serif; }
+    .font-sans { font-family: 'Montserrat', sans-serif; }
+    /* Memastikan mobile tidak full layar dan terlihat seperti card */
+    @media (max-width: 768px) {
+        .product-card { margin: 15px; border-radius: 24px; padding: 20px !important; }
+    }
+</style>
+
+<section class="product-container py-12 bg-black text-white font-sans">
+    <div class="max-w-6xl mx-auto bg-neutral-900/30 p-8 md:p-12 border border-white/10 rounded-[32px]">
+        <div class="grid md:grid-cols-[45%,55%] gap-12 items-start">
+            
+            <div class="space-y-6">
+                <div class="group border border-white/10 p-2 rounded-2xl overflow-hidden cursor-pointer">
+                    <img src="asset/produk1.png" class="main-product-img w-full h-auto object-cover rounded-xl transition-transform duration-700 ease-in-out group-hover:scale-110" alt="Product">
+                </div>
+                <div class="flex gap-4 justify-center">
+                    <button onclick="switchImage(this, 'asset/produk1.png')" class="thumb-btn w-20 h-20 border border-white/20 rounded-xl overflow-hidden transition-all duration-300 opacity-100">
+                        <img src="asset/produk1.png" class="w-full h-full object-cover">
+                    </button>
+                    <button onclick="switchImage(this, 'asset/produk2.png')" class="thumb-btn w-20 h-20 border border-white/20 rounded-xl overflow-hidden transition-all duration-300 opacity-50">
+                        <img src="asset/produk2.png" class="w-full h-full object-cover">
+                    </button>
+                </div>
+            </div>
+
+            <div class="space-y-8">
+                <h1 class="product-title font-serif text-4xl md:text-6xl tracking-tight uppercase">Vazten T-shirt Black</h1>
+
+                 <div class="space-y-3 text-gray-400 font-medium tracking-widest text-xs md:text-sm border-b border-white/10 pb-6">
+                    <p>• VAZTEN SPECIAL MARCHANDISE</p>
+                    <p>• CATTON BIOWOSH 20S</p>
+                    <p>• HIGH QUALITY PRINTING</p>
+                    <p>• OVERSIZE</p>
+                    </div>
+
+                     <div>
+                    <h2 class="text-xs font-bold mb-4 uppercase tracking-[0.3em] text-gray-500">Measurement</h2>
+                    <div class="grid grid-cols-2 gap-y-2 text-xs font-bold text-gray-200 tracking-widest uppercase">
+                        <p>S : 55 x 56 x 21</p>
+                        <p>M : 57 x 58 x 23</p>
+                        <p>L : 59 x 60 x 25</p>
+                        <p>XL : 61 x 62 x 27</p>
+                    </div>
+                   </div>
+                <div class="size-group flex gap-3">
+                    <button onclick="selectSize(this)" class="size-btn w-12 h-12 border border-white/30 hover:border-white transition-all font-bold">S</button>
+                    <button onclick="selectSize(this)" class="size-btn w-12 h-12 border border-white/30 hover:border-white transition-all font-bold">M</button>
+                    <button onclick="selectSize(this)" class="size-btn w-12 h-12 border border-white/30 hover:border-white transition-all font-bold">L</button>
+                    <button onclick="selectSize(this)" class="size-btn w-12 h-12 border border-white/30 hover:border-white transition-all font-bold">XL</button>
+                </div>
+
+                <div class="pt-4 border-t border-white/10">
+                    <p class="text-3xl font-light tracking-tighter mb-6">IDR 200.000</p>
+                    <button onclick="buyNow(this)" class="w-full text-center bg-white text-black py-4 font-bold uppercase tracking-[0.2em] hover:bg-gray-200 transition-all">
+                        Buy Now
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="product-container py-12 bg-black text-white font-sans">
+    <div class="max-w-6xl mx-auto bg-neutral-900/30 p-8 md:p-12 border border-white/10 rounded-[32px]">
+        <div class="grid md:grid-cols-[45%,55%] gap-12 items-start">
+            
+            <div class="space-y-6">
+                <div class="group border border-white/10 p-2 rounded-2xl overflow-hidden cursor-pointer">
+                    <img src="asset/produk3.png" class="main-product-img w-full h-auto object-cover rounded-xl transition-transform duration-700 ease-in-out group-hover:scale-110" alt="Product">
+                </div>
+                <div class="flex gap-4 justify-center">
+                    <button onclick="switchImage(this, 'asset/produk3.png')" class="thumb-btn w-20 h-20 border border-white/20 rounded-xl overflow-hidden transition-all duration-300 opacity-100">
+                        <img src="asset/produk3.png" class="w-full h-full object-cover">
+                    </button>
+                    <button onclick="switchImage(this, 'asset/produk4.png')" class="thumb-btn w-20 h-20 border border-white/20 rounded-xl overflow-hidden transition-all duration-300 opacity-50">
+                        <img src="asset/produk4.png" class="w-full h-full object-cover">
+                    </button>
+                </div>
+            </div>
+
+            <div class="space-y-8">
+                <h1 class="product-title font-serif text-4xl md:text-6xl tracking-tight uppercase">Vazten T-shirt White</h1>
+
+                 <div class="space-y-3 text-gray-400 font-medium tracking-widest text-xs md:text-sm border-b border-white/10 pb-6">
+                    <p>• VAZTEN SPECIAL MARCHANDISE</p>
+                    <p>• CATTON BIOWOSH 20S</p>
+                    <p>• HIGH QUALITY PRINTING</p>
+                    <p>• OVERSIZE</p>
+                    </div>
+
+                     <div>
+                    <h2 class="text-xs font-bold mb-4 uppercase tracking-[0.3em] text-gray-500">Measurement</h2>
+                    <div class="grid grid-cols-2 gap-y-2 text-xs font-bold text-gray-200 tracking-widest uppercase">
+                        <p>S : 55 x 56 x 21</p>
+                        <p>M : 57 x 58 x 23</p>
+                        <p>L : 59 x 60 x 25</p>
+                        <p>XL : 61 x 62 x 27</p>
+                    </div>
+                   </div>
+                <div class="size-group flex gap-3">
+                    <button onclick="selectSize(this)" class="size-btn w-12 h-12 border border-white/30 hover:border-white transition-all font-bold">S</button>
+                    <button onclick="selectSize(this)" class="size-btn w-12 h-12 border border-white/30 hover:border-white transition-all font-bold">M</button>
+                    <button onclick="selectSize(this)" class="size-btn w-12 h-12 border border-white/30 hover:border-white transition-all font-bold">L</button>
+                    <button onclick="selectSize(this)" class="size-btn w-12 h-12 border border-white/30 hover:border-white transition-all font-bold">XL</button>
+                </div>
+
+                <div class="pt-4 border-t border-white/10">
+                    <p class="text-3xl font-light tracking-tighter mb-6">IDR 200.000</p>
+                    <button onclick="buyNow(this)" class="w-full text-center bg-white text-black py-4 font-bold uppercase tracking-[0.2em] hover:bg-gray-200 transition-all">
+                        Buy Now
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="product-container py-12 bg-black text-white font-sans">
+    <div class="max-w-6xl mx-auto bg-neutral-900/30 p-8 md:p-12 border border-white/10 rounded-[32px]">
+        <div class="grid md:grid-cols-[45%,55%] gap-12 items-start">
+            
+            <div class="space-y-6">
+                <div class="group border border-white/10 p-2 rounded-2xl overflow-hidden cursor-pointer">
+                    <img src="asset/produk5.png" class="main-product-img w-full h-auto object-cover rounded-xl transition-transform duration-700 ease-in-out group-hover:scale-110" alt="Product">
+                </div>
+                <div class="flex gap-4 justify-center">
+                    <button onclick="switchImage(this, 'asset/produk5.png')" class="thumb-btn w-20 h-20 border border-white/20 rounded-xl overflow-hidden transition-all duration-300 opacity-100">
+                        <img src="asset/produk5.png" class="w-full h-full object-cover">
+                    </button>
+                    <button onclick="switchImage(this, 'asset/produk6.png')" class="thumb-btn w-20 h-20 border border-white/20 rounded-xl overflow-hidden transition-all duration-300 opacity-50">
+                        <img src="asset/produk6.png" class="w-full h-full object-cover">
+                    </button>
+                </div>
+            </div>
+
+            <div class="space-y-8">
+                <h1 class="product-title font-serif text-4xl md:text-6xl tracking-tight uppercase">Short Pants Black</h1>
+
+                 <div class="space-y-3 text-gray-400 font-medium tracking-widest text-xs md:text-sm border-b border-white/10 pb-6">
+                    <p>• VAZTEN SPECIAL SHORT PANTS</p>
+                    <p>• CATOON FLEECE 280GSM</p>
+                    <p>• HIGH QUALITY MATERIALS</p>
+                    <p>• JORTS</p>
+                    </div>
+
+                     <div>
+                    <h2 class="text-xs font-bold mb-4 uppercase tracking-[0.3em] text-gray-500">Measurement</h2>
+                    <div class="grid grid-cols-2 gap-y-2 text-xs font-bold text-gray-200 tracking-widest uppercase">
+                        <p>28 : 76 x 33 x 59 x 34</p>
+                        <p>30 : 80 x 34 x 59 x 35</p>
+                        <p>32 : 84 x 35 x 62 x 36</p>
+                        <p>34 : 88 x 36 x 62 x 37</p>
+                        <p>36 : 92 x 37 x 64 x 38</p>
+                        <p>38 : 96 x 38 x 64 x 39</p>
+                    </div>
+                   </div>
+                <div class="size-group flex gap-3">
+                    <button onclick="selectSize(this)" class="size-btn w-12 h-12 border border-white/30 hover:border-white transition-all font-bold">28</button>
+                    <button onclick="selectSize(this)" class="size-btn w-12 h-12 border border-white/30 hover:border-white transition-all font-bold">30</button>
+                    <button onclick="selectSize(this)" class="size-btn w-12 h-12 border border-white/30 hover:border-white transition-all font-bold">32</button>
+                    <button onclick="selectSize(this)" class="size-btn w-12 h-12 border border-white/30 hover:border-white transition-all font-bold">34</button>
+                    <button onclick="selectSize(this)" class="size-btn w-12 h-12 border border-white/30 hover:border-white transition-all font-bold">36</button>
+                    <button onclick="selectSize(this)" class="size-btn w-12 h-12 border border-white/30 hover:border-white transition-all font-bold">38</button>
+
+                </div>
+
+                <div class="pt-4 border-t border-white/10">
+                    <p class="text-3xl font-light tracking-tighter mb-6">IDR 200.000</p>
+                    <button onclick="buyNow(this)" class="w-full text-center bg-white text-black py-4 font-bold uppercase tracking-[0.2em] hover:bg-gray-200 transition-all">
+                        Buy Now
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="product-container py-12 bg-black text-white font-sans">
+    <div class="max-w-6xl mx-auto bg-neutral-900/30 p-8 md:p-12 border border-white/10 rounded-[32px]">
+        <div class="grid md:grid-cols-[45%,55%] gap-12 items-start">
+            
+            <div class="space-y-6">
+                <div class="group border border-white/10 p-2 rounded-2xl overflow-hidden cursor-pointer">
+                    <img src="asset/produk7.png" class="main-product-img w-full h-auto object-cover rounded-xl transition-transform duration-700 ease-in-out group-hover:scale-110" alt="Product">
+                </div>
+                <div class="flex gap-4 justify-center">
+                    <button onclick="switchImage(this, 'asset/produk7.png')" class="thumb-btn w-20 h-20 border border-white/20 rounded-xl overflow-hidden transition-all duration-300 opacity-100">
+                        <img src="asset/produk7.png" class="w-full h-full object-cover">
+                    </button>
+                    <button onclick="switchImage(this, 'asset/produk8.png')" class="thumb-btn w-20 h-20 border border-white/20 rounded-xl overflow-hidden transition-all duration-300 opacity-50">
+                        <img src="asset/produk8.png" class="w-full h-full object-cover">
+                    </button>
+                </div>
+            </div>
+
+            <div class="space-y-8">
+                <h1 class="product-title font-serif text-4xl md:text-6xl tracking-tight uppercase">Short pants White</h1>
+
+                 <div class="space-y-3 text-gray-400 font-medium tracking-widest text-xs md:text-sm border-b border-white/10 pb-6">
+                    <p>• VAZTEN SPECIAL SHORT PANTS</p>
+                    <p>• CATOON FLEECE 280GSM</p>
+                    <p>• HIGH QUALITY MATERIALS</p>
+                    <p>• JORTS</p>
+                    </div>
+
+                     <div>
+                    <h2 class="text-xs font-bold mb-4 uppercase tracking-[0.3em] text-gray-500">Measurement</h2>
+                    <div class="grid grid-cols-2 gap-y-2 text-xs font-bold text-gray-200 tracking-widest uppercase">
+                        <p>28 : 76 x 33 x 59 x 34</p>
+                        <p>30 : 80 x 34 x 59 x 35</p>
+                        <p>32 : 84 x 35 x 62 x 36</p>
+                        <p>34 : 88 x 36 x 62 x 37</p>
+                        <p>36 : 92 x 37 x 64 x 38</p>
+                        <p>38 : 96 x 38 x 64 x 39</p>
+                    </div>
+                   </div>
+                <div class="size-group flex gap-3">
+                    <button onclick="selectSize(this)" class="size-btn w-12 h-12 border border-white/30 hover:border-white transition-all font-bold">28</button>
+                    <button onclick="selectSize(this)" class="size-btn w-12 h-12 border border-white/30 hover:border-white transition-all font-bold">30</button>
+                    <button onclick="selectSize(this)" class="size-btn w-12 h-12 border border-white/30 hover:border-white transition-all font-bold">32</button>
+                    <button onclick="selectSize(this)" class="size-btn w-12 h-12 border border-white/30 hover:border-white transition-all font-bold">34</button>
+                    <button onclick="selectSize(this)" class="size-btn w-12 h-12 border border-white/30 hover:border-white transition-all font-bold">36</button>
+                    <button onclick="selectSize(this)" class="size-btn w-12 h-12 border border-white/30 hover:border-white transition-all font-bold">38</button>
+                </div>
+
+                <div class="pt-4 border-t border-white/10">
+                    <p class="text-3xl font-light tracking-tighter mb-6">IDR 200.000</p>
+                    <button onclick="buyNow(this)" class="w-full text-center bg-white text-black py-4 font-bold uppercase tracking-[0.2em] hover:bg-gray-200 transition-all">
+                        Buy Now
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    // 1. Switch Gambar (Universal)
+    function switchImage(btn, src) {
+        const productContainer = btn.closest('.product-container');
+        const mainImg = productContainer.querySelector('.main-product-img');
+        mainImg.src = src;
+        
+        productContainer.querySelectorAll('.thumb-btn').forEach(b => b.style.opacity = '0.5');
+        btn.style.opacity = '1';
+    }
+
+    // 2. Pilih Ukuran (Universal)
+    function selectSize(btn) {
+        const parentGroup = btn.closest('.size-group');
+        parentGroup.querySelectorAll('.size-btn').forEach(b => {
+            b.classList.remove('bg-white', 'text-black');
+        });
+        btn.classList.add('bg-white', 'text-black');
+    }
+
+    // 3. Buy Now (Universal)
+    function buyNow(btn) {
+        const productContainer = btn.closest('.product-container');
+        const title = productContainer.querySelector('.product-title').innerText;
+        const activeBtn = productContainer.querySelector('.size-btn.bg-white');
+        const size = activeBtn ? activeBtn.innerText : "Belum dipilih";
+
+        const message = `Hello, I would like to purchase:\n\nMerch : ${title}\nSize : ${size}\n\nPayment : IDR\nName :\nAdress :`;
+        const phone = "628135300661";
+        
+        window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, '_blank');
+    }
+</script>
+
+<section class="special-discount-section py-20 bg-black text-white font-sans">
+    <div class="max-w-xl mx-auto px-6"> <h2 class="text-4xl md:text-5xl font-serif text-center uppercase tracking-tighter mb-16 border-b border-white/10 pb-8">
+            vazten special discount
+        </h2>
+
+        <div class="flex flex-col gap-12">
+
+            <div class="product-container bg-neutral-900/40 p-6 border border-white/10 rounded-[32px]">
+                <div class="flex flex-col gap-6">
+                    <div class="relative aspect-square border border-white/10 p-2 rounded-3xl overflow-hidden">
+                        <img src="asset/set1.png" class="main-product-img w-full h-full object-cover rounded-2xl">
+                    </div>
+
+                    <div class="flex items-start gap-4">
+                        <div class="flex flex-col gap-2">
+                            <button onclick="universalSwitchImage(this, 'asset/set1.png')" class="thumb-btn w-16 h-16 border border-white rounded-xl overflow-hidden">
+                                <img src="asset/set1.png" class="w-full h-full object-cover">
+                            </button>
+                            <button onclick="universalSwitchImage(this, 'asset/set2.png')" class="thumb-btn w-16 h-16 border border-white/20 rounded-xl overflow-hidden opacity-50">
+                                <img src="asset/set2.png" class="w-full h-full object-cover">
+                            </button>
+                        </div>
+
+                        <div class="flex-1 space-y-4">
+                            <h3 class="product-title font-serif text-2xl uppercase">FULL SET VAZTEN MERCHANDISE BLACK</h3>
+                            
+                            <div class="price-info flex items-center gap-3">
+                                <span class="text-lg text-white font-light line-through decoration-red-600 decoration-2">400k</span>
+                                <span class="text-3xl font-bold text-white">350k</span>
+                            </div>
+
+                            <div class="size-group flex gap-2">
+                                <button onclick="universalSelectSize(this)" class="size-btn w-10 h-10 border border-white/30 rounded-lg font-bold">S</button>
+                                <button onclick="universalSelectSize(this)" class="size-btn w-10 h-10 border border-white bg-white text-black rounded-lg font-bold">M</button>
+                                <button onclick="universalSelectSize(this)" class="size-btn w-10 h-10 border border-white/30 rounded-lg font-bold">L</button>
+                                <button onclick="universalSelectSize(this)" class="size-btn w-10 h-10 border border-white/30 rounded-lg font-bold">XL</button>
+                            </div>
+                        </div>
+                    </div>
+
+                     <button onclick="buyNow(this)" class="w-full text-center bg-white text-black py-4 font-bold uppercase tracking-[0.2em] hover:bg-gray-200 transition-all">
+                        Buy Now
+                    </button>
+                </div>
+            </div>
+
+            <div class="product-container bg-neutral-900/40 p-6 border border-white/10 rounded-[32px]">
+                <div class="flex flex-col gap-6">
+                    <div class="relative aspect-square border border-white/10 p-2 rounded-3xl overflow-hidden">
+                        <img src="asset/set3.png" class="main-product-img w-full h-full object-cover rounded-2xl">
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <div class="flex flex-col gap-2">
+                            <button onclick="universalSwitchImage(this, 'asset/set3.png')" class="thumb-btn w-16 h-16 border border-white rounded-xl overflow-hidden">
+                                <img src="asset/set3.png" class="w-full h-full object-cover">
+                            </button>
+                            <button onclick="universalSwitchImage(this, 'asset/set4.png')" class="thumb-btn w-16 h-16 border border-white/20 rounded-xl overflow-hidden opacity-50">
+                                <img src="asset/set4.png" class="w-full h-full object-cover">
+                            </button>
+                        </div>
+                        <div class="flex-1 space-y-4">
+                            <h3 class="product-title font-serif text-2xl uppercase">FULL SET VAZTEN MERCHANDISE WHITE</h3>
+                            <div class="price-info flex items-center gap-3">
+                                <span class="text-lg text-white font-light line-through decoration-red-600 decoration-2">400k</span>
+                                <span class="text-3xl font-bold text-white">350k</span>
+                            </div>
+                            <div class="size-group flex gap-2">
+                                <button onclick="universalSelectSize(this)" class="size-btn w-10 h-10 border border-white/30 rounded-lg font-bold">S</button>
+                                <button onclick="universalSelectSize(this)" class="size-btn w-10 h-10 border border-white bg-white text-black rounded-lg font-bold">M</button>
+                                <button onclick="universalSelectSize(this)" class="size-btn w-10 h-10 border border-white/30 rounded-lg font-bold">L</button>
+                                <button onclick="universalSelectSize(this)" class="size-btn w-10 h-10 border border-white/30 rounded-lg font-bold">XL</button>
+                            </div>
+                        </div>
+                    </div>
+                    <button onclick="buyNow(this)" class="w-full text-center bg-white text-black py-4 font-bold uppercase tracking-[0.2em] hover:bg-gray-200 transition-all">
+                        Buy Now
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+    <script>
+        // 1. Fungsi Universal Switch Gambar (Thumbnail ke Utama)
+        function universalSwitchImage(clickedThumb, newSrc) {
+            // Temukan kontainer produk terdekat untuk membatasi ruang lingkup
+            const productContainer = clickedThumb.closest('.product-container');
+            
+            // Temukan gambar utama di kontainer ini dan ganti src-nya
+            const mainImg = productContainer.querySelector('.main-product-img');
+            mainImg.src = newSrc;
+            
+            // Perbarui state aktif untuk semua thumbnail di kontainer ini
+            productContainer.querySelectorAll('.thumb-btn').forEach(btn => {
+                btn.classList.remove('active', 'border-white');
+                btn.classList.add('opacity-50', 'border-white/20');
+            });
+            clickedThumb.classList.add('active', 'border-white');
+            clickedThumb.classList.remove('opacity-50', 'border-white/20');
+        }
+
+        // 2. Fungsi Universal Pilih Ukuran
+        function universalSelectSize(clickedSizeBtn) {
+            // Temukan size-group terdekat
+            const sizeGroup = clickedSizeBtn.closest('.size-group');
+            
+            // Hapus class aktif dari semua tombol ukuran di grup ini
+            sizeGroup.querySelectorAll('.size-btn').forEach(btn => {
+                btn.classList.remove('active', 'bg-white', 'text-black', 'border-white');
+                btn.classList.add('border-white/30');
+            });
+            
+            // Tambahkan class aktif ke tombol yang diklik
+            clickedSizeBtn.classList.add('active', 'bg-white', 'text-black', 'border-white');
+            clickedSizeBtn.classList.remove('border-white/30');
+        }
+
+        // 3. Fungsi Universal Buy Now (WhatsApp Alur)
+        function universalBuyNow(buyBtn) {
+            // Temukan kontainer produk terdekat untuk mengambil info produk
+            const productContainer = buyBtn.closest('.product-container');
+            
+            // Ambil Judul Produk
+            const title = productContainer.querySelector('.product-title').innerText;
+            
+            // Ambil Harga Diskon
+            const price = productContainer.querySelector('.new-price').innerText;
+            
+            // Ambil Ukuran Aktif
+            const activeSizeBtn = productContainer.querySelector('.size-btn.active');
+            const size = activeSizeBtn ? activeSizeBtn.innerText : "Belum dipilih";
+
+            // Buat Pesan WhatsApp yang disesuaikan
+            const message = `Hello Vazten, I want to buy this special discount product:\n\n` +
+                            `Product : ${title}\n` +
+                            `Price : IDR ${price}\n` +
+                            `Size : ${size}\n\n` +
+                            `Payment : IDR\n` +
+                            `Name :\n` +
+                            `Address :`;
+
+            // Nomor tujuan WhatsApp (Ganti dengan nomor Anda)
+            const phone = "628135300661"; // Pastikan format nomor benar (tanpa +, gunakan kode negara)
+            
+            // Buka link WhatsApp di tab baru
+            window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, '_blank');
+        }
+    </script>
+
+    <script>
+        // Hero Slider Logic
+        let count = 0;
+        const images = ['url(https://picsum.photos/1920/1080?1)', 'url(https://picsum.photos/1920/1080?2)'];
+        setInterval(() => {
+            count = (count + 1) % images.length;
+            document.getElementById('hero-bg').style.backgroundImage = images[count];
+        }, 5000);
+    </script>
+
+    <section class="py-20 bg-black text-white font-sans">
+    <div class="max-w-7xl mx-auto px-6">
+        
+        <div class="text-center mb-16">
+            <h2 class="text-5xl md:text-6xl font-serif uppercase tracking-tighter mb-4">Exclisive Vazten Gallery</h2>
+            <p class="text-neutral-500 uppercase tracking-widest text-sm">Our Best Quality Production Results</p>
+        </div>
+
+        <div class="flex justify-center gap-4 mb-12 flex-wrap">
+            <button onclick="filterGallery('all')" class="filter-btn px-6 py-2 border border-white rounded-full text-sm uppercase active bg-white text-black">All</button>
+            <button onclick="filterGallery('tshirt')" class="filter-btn px-6 py-2 border border-white/20 hover:border-white rounded-full text-sm uppercase transition-all">T-Shirt</button>
+            <button onclick="filterGallery('crewneck')" class="filter-btn px-6 py-2 border border-white/20 hover:border-white rounded-full text-sm uppercase transition-all">Crewneck</button>
+            <button onclick="filterGallery('kemeja')" class="filter-btn px-6 py-2 border border-white/20 hover:border-white rounded-full text-sm uppercase transition-all">Shirt</button>
+        </div>
+
+        <div id="galeri" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            
+            <div class="gallery-item tshirt relative group overflow-hidden rounded-2xl border border-white/10">
+                <img src="asset/Hero1.jpeg" class="w-full aspect-square object-cover transition-transform duration-500 group-hover:scale-110">
+                
+                <div class="absolute bottom-4 left-4 w-12 h-12 bg-red-600 rounded-full flex items-center justify-center shadow-lg z-10">
+                    <span class="text-[10px] font-bold uppercase">Sold</span>
+                </div>
+            </div>
+            <div class="gallery-item tshirt relative group overflow-hidden rounded-2xl border border-white/10">
+                <img src="asset/galeri1.jpeg" class="w-full aspect-square object-cover transition-transform duration-500 group-hover:scale-110">
+                <div class="absolute bottom-4 left-4 w-12 h-12 bg-red-600 rounded-full flex items-center justify-center shadow-lg z-10">
+                    <span class="text-[10px] font-bold uppercase">Sold</span>
+                </div>
+            </div>
+             <div class="gallery-item tshirt relative group overflow-hidden rounded-2xl border border-white/10">
+                <img src="asset/galeri2.jpeg" class="w-full aspect-square object-cover transition-transform duration-500 group-hover:scale-110">
+                <div class="absolute bottom-4 left-4 w-12 h-12 bg-red-600 rounded-full flex items-center justify-center shadow-lg z-10">
+                    <span class="text-[10px] font-bold uppercase">Sold</span>
+                </div>
+            </div>
+             <div class="gallery-item tshirt relative group overflow-hidden rounded-2xl border border-white/10">
+                <img src="asset/galeri3.jpeg" class="w-full aspect-square object-cover transition-transform duration-500 group-hover:scale-110">
+                <div class="absolute bottom-4 left-4 w-12 h-12 bg-red-600 rounded-full flex items-center justify-center shadow-lg z-10">
+                    <span class="text-[10px] font-bold uppercase">Sold</span>
+                </div>
+            </div>
+             <div class="gallery-item crewneck relative group overflow-hidden rounded-2xl border border-white/10">
+                <img src="asset/galeri4.jpeg" class="w-full aspect-square object-cover transition-transform duration-500 group-hover:scale-110">
+                <div class="absolute bottom-4 left-4 w-12 h-12 bg-red-600 rounded-full flex items-center justify-center shadow-lg z-10">
+                    <span class="text-[10px] font-bold uppercase">Sold</span>
+                </div>
+            </div>
+             <div class="gallery-item crewneck relative group overflow-hidden rounded-2xl border border-white/10">
+                <img src="asset/galeri5.jpeg" class="w-full aspect-square object-cover transition-transform duration-500 group-hover:scale-110">
+                <div class="absolute bottom-4 left-4 w-12 h-12 bg-red-600 rounded-full flex items-center justify-center shadow-lg z-10">
+                    <span class="text-[10px] font-bold uppercase">Sold</span>
+                </div>
+            </div>
+              <div class="gallery-item crewneck relative group overflow-hidden rounded-2xl border border-white/10">
+                <img src="asset/galeri6.jpeg" class="w-full aspect-square object-cover transition-transform duration-500 group-hover:scale-110">
+                <div class="absolute bottom-4 left-4 w-12 h-12 bg-red-600 rounded-full flex items-center justify-center shadow-lg z-10">
+                    <span class="text-[10px] font-bold uppercase">Sold</span>
+                </div>
+            </div>  <div class="gallery-item crewneck relative group overflow-hidden rounded-2xl border border-white/10">
+                <img src="asset/galeri7.jpeg" class="w-full aspect-square object-cover transition-transform duration-500 group-hover:scale-110">
+                <div class="absolute bottom-4 left-4 w-12 h-12 bg-red-600 rounded-full flex items-center justify-center shadow-lg z-10">
+                    <span class="text-[10px] font-bold uppercase">Sold</span>
+                </div>
+            </div>
+              <div class="gallery-item kemeja relative group overflow-hidden rounded-2xl border border-white/10">
+                <img src="asset/galeri8.jpeg" class="w-full aspect-square object-cover transition-transform duration-500 group-hover:scale-110">
+                <div class="absolute bottom-4 left-4 w-12 h-12 bg-red-600 rounded-full flex items-center justify-center shadow-lg z-10">
+                    <span class="text-[10px] font-bold uppercase">Sold</span>
+                </div>
+            </div>
+                <div class="gallery-item kemeja relative group overflow-hidden rounded-2xl border border-white/10">
+                <img src="asset/galeri11.png" class="w-full aspect-square object-cover transition-transform duration-500 group-hover:scale-110">
+                <div class="absolute bottom-4 left-4 w-12 h-12 bg-red-600 rounded-full flex items-center justify-center shadow-lg z-10">
+                    <span class="text-[10px] font-bold uppercase">Sold</span>
+                </div>
+            </div>
+                <div class="gallery-item kemeja relative group overflow-hidden rounded-2xl border border-white/10">
+                <img src="asset/galeri12.png" class="w-full aspect-square object-cover transition-transform duration-500 group-hover:scale-110">
+                <div class="absolute bottom-4 left-4 w-12 h-12 bg-red-600 rounded-full flex items-center justify-center shadow-lg z-10">
+                    <span class="text-[10px] font-bold uppercase">Sold</span>
+                </div>
+            </div>
+                 <div class="gallery-item kemeja relative group overflow-hidden rounded-2xl border border-white/10">
+                <img src="asset/galeri13.png" class="w-full aspect-square object-cover transition-transform duration-500 group-hover:scale-110">
+                <div class="absolute bottom-4 left-4 w-12 h-12 bg-red-600 rounded-full flex items-center justify-center shadow-lg z-10">
+                    <span class="text-[10px] font-bold uppercase">Sold</span>
+                </div>
+            </div>
+                 <div class="gallery-item kemeja relative group overflow-hidden rounded-2xl border border-white/10">
+                <img src="asset/galeri14.png" class="w-full aspect-square object-cover transition-transform duration-500 group-hover:scale-110">
+                <div class="absolute bottom-4 left-4 w-12 h-12 bg-red-600 rounded-full flex items-center justify-center shadow-lg z-10">
+                    <span class="text-[10px] font-bold uppercase">Sold</span>
+                </div>
+            </div>
+             <div class="gallery-item tshirt relative group overflow-hidden rounded-2xl border border-white/10">
+                <img src="asset/galeri9.jpeg" class="w-full aspect-square object-cover transition-transform duration-500 group-hover:scale-110">
+                <div class="absolute bottom-4 left-4 w-12 h-12 bg-red-600 rounded-full flex items-center justify-center shadow-lg z-10">
+                    <span class="text-[10px] font-bold uppercase">Sold</span>
+                </div>
+            </div>
+              <div class="gallery-item tshirt relative group overflow-hidden rounded-2xl border border-white/10">
+                <img src="asset/galeri10.jpeg" class="w-full aspect-square object-cover transition-transform duration-500 group-hover:scale-110">
+                <div class="absolute bottom-4 left-4 w-12 h-12 bg-red-600 rounded-full flex items-center justify-center shadow-lg z-10">
+                    <span class="text-[10px] font-bold uppercase">Sold</span>
+                </div>
+            </div>
+                 <div class="gallery-item tshirt relative group overflow-hidden rounded-2xl border border-white/10">
+                <img src="asset/galeri15.jpeg" class="w-full aspect-square object-cover transition-transform duration-500 group-hover:scale-110">
+                <div class="absolute bottom-4 left-4 w-12 h-12 bg-red-600 rounded-full flex items-center justify-center shadow-lg z-10">
+                    <span class="text-[10px] font-bold uppercase">Sold</span>
+                </div>
+            </div>
+             <div class="gallery-item tshirt relative group overflow-hidden rounded-2xl border border-white/10">
+                <img src="asset/galeri16.jpeg" class="w-full aspect-square object-cover transition-transform duration-500 group-hover:scale-110">         
+                <div class="absolute bottom-4 left-4 w-12 h-12 bg-red-600 rounded-full flex items-center justify-center shadow-lg z-10">
+                    <span class="text-[10px] font-bold uppercase">Sold</span>
+                </div>
+            </div>
+             <div class="gallery-item tshirt relative group overflow-hidden rounded-2xl border border-white/10">
+                <img src="asset/galeri17.jpeg" class="w-full aspect-square object-cover transition-transform duration-500 group-hover:scale-110">              
+                <div class="absolute bottom-4 left-4 w-12 h-12 bg-red-600 rounded-full flex items-center justify-center shadow-lg z-10">
+                    <span class="text-[10px] font-bold uppercase">Sold</span>
+                </div>
+            </div>
+             <div class="gallery-item tshirt relative group overflow-hidden rounded-2xl border border-white/10">
+                <img src="asset/galeri18.jpeg" class="w-full aspect-square object-cover transition-transform duration-500 group-hover:scale-110">     
+                <div class="absolute bottom-4 left-4 w-12 h-12 bg-red-600 rounded-full flex items-center justify-center shadow-lg z-10">
+                    <span class="text-[10px] font-bold uppercase">Sold</span>
+                </div>
+            </div>
+             <div class="gallery-item tshirt relative group overflow-hidden rounded-2xl border border-white/10">
+                <img src="asset/galeri20.jpeg" class="w-full aspect-square object-cover transition-transform duration-500 group-hover:scale-110">
+                <div class="absolute bottom-4 left-4 w-12 h-12 bg-red-600 rounded-full flex items-center justify-center shadow-lg z-10">
+                    <span class="text-[10px] font-bold uppercase">Sold</span>
+                </div>
+            </div>
+              <div class="gallery-item kemeja relative group overflow-hidden rounded-2xl border border-white/10">
+                <img src="asset/galeri21.jpeg" class="w-full aspect-square object-cover transition-transform duration-500 group-hover:scale-110">
+                <div class="absolute bottom-4 left-4 w-12 h-12 bg-red-600 rounded-full flex items-center justify-center shadow-lg z-10">
+                    <span class="text-[10px] font-bold uppercase">Sold</span>
+                </div>
+            </div>
+              <div class="gallery-item kemeja relative group overflow-hidden rounded-2xl border border-white/10">
+                <img src="asset/galeri22.jpeg" class="w-full aspect-square object-cover transition-transform duration-500 group-hover:scale-110">
+                <div class="absolute bottom-4 left-4 w-12 h-12 bg-red-600 rounded-full flex items-center justify-center shadow-lg z-10">
+                    <span class="text-[10px] font-bold uppercase">Sold</span>
+                </div>
+            </div>
+             <div class="gallery-item tshirt relative group overflow-hidden rounded-2xl border border-white/10">
+                <img src="asset/galeri23.jpeg" class="w-full aspect-square object-cover transition-transform duration-500 group-hover:scale-110">
+                <div class="absolute bottom-4 left-4 w-12 h-12 bg-red-600 rounded-full flex items-center justify-center shadow-lg z-10">
+                    <span class="text-[10px] font-bold uppercase">Sold</span>
+                </div>
+            </div>
+             <div class="gallery-item tshirt relative group overflow-hidden rounded-2xl border border-white/10">
+                <img src="asset/galeri24.jpeg" class="w-full aspect-square object-cover transition-transform duration-500 group-hover:scale-110">
+                <div class="absolute bottom-4 left-4 w-12 h-12 bg-red-600 rounded-full flex items-center justify-center shadow-lg z-10">
+                    <span class="text-[10px] font-bold uppercase">Sold</span>
+                </div>
+            </div>
+             <div class="gallery-item tshirt relative group overflow-hidden rounded-2xl border border-white/10">
+                <img src="asset/galeri25.jpeg" class="w-full aspect-square object-cover transition-transform duration-500 group-hover:scale-110">
+                <div class="absolute bottom-4 left-4 w-12 h-12 bg-red-600 rounded-full flex items-center justify-center shadow-lg z-10">
+                    <span class="text-[10px] font-bold uppercase">Sold</span>
+                </div>
+            </div>
+             <div class="gallery-item tshirt relative group overflow-hidden rounded-2xl border border-white/10">
+                <img src="asset/galeri26.jpeg" class="w-full aspect-square object-cover transition-transform duration-500 group-hover:scale-110">
+                <div class="absolute bottom-4 left-4 w-12 h-12 bg-red-600 rounded-full flex items-center justify-center shadow-lg z-10">
+                    <span class="text-[10px] font-bold uppercase">Sold</span>
+                </div>
+            </div>
+             <div class="gallery-item tshirt relative group overflow-hidden rounded-2xl border border-white/10">
+                <img src="asset/galeri27.jpeg" class="w-full aspect-square object-cover transition-transform duration-500 group-hover:scale-110">
+                <div class="absolute bottom-4 left-4 w-12 h-12 bg-red-600 rounded-full flex items-center justify-center shadow-lg z-10">
+                    <span class="text-[10px] font-bold uppercase">Sold</span>
+                </div>
+            </div>
+             <div class="gallery-item tshirt relative group overflow-hidden rounded-2xl border border-white/10">
+                <img src="asset/galeri28.jpeg" class="w-full aspect-square object-cover transition-transform duration-500 group-hover:scale-110">
+                <div class="absolute bottom-4 left-4 w-12 h-12 bg-red-600 rounded-full flex items-center justify-center shadow-lg z-10">
+                    <span class="text-[10px] font-bold uppercase">Sold</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<script>
+    function filterGallery(category) {
+        const items = document.querySelectorAll('.gallery-item');
+        const buttons = document.querySelectorAll('.filter-btn');
+
+        // Toggle Active Button
+        buttons.forEach(btn => {
+            btn.classList.remove('active', 'bg-white', 'text-black');
+            btn.classList.add('border-white/20');
+        });
+        event.target.classList.add('active', 'bg-white', 'text-black');
+
+        // Filter Logic
+        items.forEach(item => {
+            if (category === 'all' || item.classList.contains(category)) {
+                item.style.display = 'block';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    }
+</script>
+
+<footer id="follow" class="bg-neutral-950 text-white pt-20 pb-10">
+    <div class="max-w-7xl mx-auto px-6"> 
+        <div class="text-center mb-20">
+            <h2 class="text-4xl font-serif uppercase mb-8">Follow Our Journey</h2>
+            <div class="flex justify-center gap-6">
+                <a href="https://www.instagram.com/vazten.nation?igsh=MTZxNzQ2eXh2eXZobA==" class="group flex items-center gap-2 border border-white/20 px-6 py-3 rounded-full hover:bg-white hover:text-black transition-all">
+                    <span class="font-bold">INSTAGRAM: @vazten.nation</span>
+                </a>
+                <a href="https://www.tiktok.com/@vazten.nation?_r=1&_t=ZS-96jQVLOjSE9" class="group flex items-center gap-2 border border-white/20 px-6 py-3 rounded-full hover:bg-white hover:text-black transition-all">
+                    <span class="font-bold">TIKTOK: @vazten.nation</span>
+                </a>
+            </div>
+        </div>
+
+<div class="grid md:grid-cols-3 gap-12 border-t border-white/10 pt-12 max-w-4xl mx-auto justify-items-center text-center">
+            
+    <div class="space-y-4">
+        <h3 class="text-2xl font-bold tracking-tighter">VAZTEN</h3>
+        <p class="text-neutral-500 text-sm">Crafting identity through premium apparel and reliable production.</p>
+    </div>
+
+    <div>
+        <h4 class="font-bold mb-4">Quick Links</h4>
+        <ul class="text-neutral-500 space-y-2 text-sm">
+            <li><a href="#products" class="hover:text-white">Products</a></li>
+            <li><a href="#galeri" class="hover:text-white">Gallery</a></li>
+            <li><a href="#" class="hover:text-white">Custom Order</a></li>
+        </ul>
+    </div>
+
+    <div>
+        <h4 class="font-bold mb-4">Contact</h4>
+        <p class="text-neutral-500 text-sm">08135300661</p>
+        <p class="text-neutral-500 text-sm">support@vazten.com</p>
+    </div>
+</div>
+
+        <div class="text-center mt-12 pt-8 border-t border-white/10 text-neutral-600 text-xs">
+            &copy; 2026 VAZTEN NATION. All rights reserved.
+        </div>
+    </div>
+</footer>
+<script>
+const translations = {
+    id: {
+        "HOME": "BERANDA",
+        "PRODUCTS": "PRODUK",
+        "GALERI": "GALERI",
+        "FOLLOW ME": "IKUTI SAYA",
+        "BUY NOW": "BELI SEKARANG",
+        "THE WAIT IS OVER": "PENANTIAN TELAH BERAKHIR",
+        "Vazten New Official Merch": "Merch Resmi Baru Vazten",
+        "Vazten T-Shirt Black": "Kaos Vazten Hitam",
+        "Vazten T-shirt White": "Kaos Vazten Putih",
+        "Short Pants Black": "Celana Pendek Hitam",
+        "Short pants White": "Celana Pendek Putih",
+        "Measurement": "Ukuran",
+        "VAZTEN SPECIAL DISCOUNT": "DISKON SPESIAL VAZTEN",
+        "FULL SET VAZTEN MERCHANDISE BLACK": "SET LENGKAP MERCH VAZTEN HITAM",
+        "FULL SET VAZTEN MERCHANDISE WHITE": "SET LENGKAP MERCH VAZTEN PUTIH",
+        "Exclisive Vazten Gallery": "Galeri Eksklusif Vazten",
+        "Our Best Quality Production Results": "Hasil Produksi Berkualitas Terbaik Kami",
+        "ALL": "SEMUA",
+        "T-SHIRT": "KAOS",
+        "CREWNECK": "CREWNECK",
+        "SHIRT": "KEMEJA",
+        "SOLD": "TERJUAL",
+        "FOLLOW OUR JOURNEY": "IKUTI PERJALANAN KAMI",
+        "Quick Links": "Link Cepat",
+        "Custom Order": "Pesanan Custom",
+        "Contact": "Kontak",
+        "Crafting identity through premium apparel and reliable production.": "Menciptakan identitas melalui pakaian premium dan produksi terpercaya.",
+        "All rights reserved.": "Hak cipta dilindungi.",
+        "CLOSE": "TUTUP"
+    }
+};
+
+// SIMPAN TEKS ASLI INGGRIS
+const originalTexts = [];
+
+// AMBIL SEMUA TEXT
+document.querySelectorAll("body *").forEach((el, index) => {
+    if (el.children.length === 0) {
+        originalTexts[index] = el.innerText;
+    }
+});
+
+// FUNCTION GANTI BAHASA
+function changeLanguage(lang) {
+
+    document.querySelectorAll("body *").forEach((el, index) => {
+
+        if (el.children.length === 0) {
+
+            const original = originalTexts[index];
+
+            // BALIK KE ENGLISH
+            if (lang === "en") {
+                el.innerText = original;
+            }
+
+            // GANTI KE INDONESIA
+            if (lang === "id") {
+                if (translations.id[original]) {
+                    el.innerText = translations.id[original];
+                }
+            }
+        }
+    });
+}
+
+// DEFAULT ENGLISH
+document.querySelector("select").value = "en";
+
+// EVENT SELECT
+document.querySelector("select").addEventListener("change", function() {
+    changeLanguage(this.value);
+});
+</script>
+```
+
+</body>
+</html>
